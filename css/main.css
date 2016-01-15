@@ -1,0 +1,31 @@
+* {
+  font-size: 18px;
+}
+
+svg#graphvis {
+  position: absolute;
+  left: 320px;
+  top: 20px;
+  width: 1000px;
+  height: 800px;
+  background-color: #eee;
+}
+
+button {
+  margin-bottom: 8px;
+  padding: 7px;
+  background-color: #901A43;
+  border: 0;
+  outline: none;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: red;
+  cursor: pointer;
+}
+
+button:active {
+  border: 0;
+  outline: none;
+}

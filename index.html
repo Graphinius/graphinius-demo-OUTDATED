@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="img/favicon_small.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="img/favicon_small.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+
+  <body>
+
+    <h3> Load Graph via JSON (undirected): </h3>
+    <input type="file" id="input_json" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0])">
+
+    <h3> Load Graph via Edge List (undirected): </h3>
+    <input type="file" id="input_csv_edge" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0])">
+
+    <h3> Graph Info: </h3>
+    <div id="graph_info">
+      Nr nodes:
+      <span class="nr_nodes"> </span> </br>
+
+      Nr edges:
+      <span class="nr_edges"> </span> </br>
+
+      Time to read:
+      <span class="time"> </span> </br>
+
+      Degree distribution:
+      <span class="deg_dist"> </span>
+    </div>
+
+
+    <!-- A FEW CONTROLS -->
+    <h3> Controls: </h3>
+    <div id="controls">
+      <button id="renderGraph" onclick="renderGraph()">Render Graph</button> </br>
+      <button id="mutilateSingle" onclick="mutilateGraphSingle()">Mutilate Graph (1 node / frame)</button> </br>
+      <button id="mutilate50" onclick="mutilateGraph50()">Mutilate Graph (50 nodes / frame)</button> </br>
+      <button id="mutilate500" onclick="mutilateGraph500()">Mutilate Graph (500 nodes / frame)</button> </br>
+      <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
+    </div>
+
+
+    <svg id="graphvis"> </svg>
+    <!-- <div id="tester" style="width:600px;height:450px;"></div> -->
+
+
+    <script src="./lib/graphinius.js"></script>
+    <script src="./js/jsonLoader.js"></script>
+    <script src="./js/csvLoader.js"></script>
+    <script src="./js/somePerfTests.js"></script>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="./js/d3_svg_sample.js"></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+    	TESTER = document.getElementById('tester');
+    	Plotly.plot( TESTER, [{
+    	x: [1, 2, 3, 4, 5],
+    	y: [1, 2, 4, 8, 16] }], {
+    	margin: { t: 0 } } );
+    </script> -->
+  </body>
+</html>
