@@ -8,10 +8,7 @@ var DOMAIN_WIDTH  = 535,
     DOMAIN_HEIGHT = 525,
     WIDTH         = 1000,
     HEIGHT        = 800,
-    RADIUS        = 4,
-    STROKE        = '#901A43',
-    STROKE_WIDTH  = 2,
-    FILL          = 'transparent';
+    RADIUS        = 4;
 
 
 var scale_x = d3.scale.linear()
@@ -48,9 +45,6 @@ function renderGraph() {
     .attr("cx", function(key) { return getXCoord(key) })
     .attr("cy", function(key) { return getYCoord(key) })
     .attr("r", RADIUS)
-    .attr("stroke", STROKE)
-    .attr("stroke-width", STROKE_WIDTH)
-    .attr("fill", FILL)
     .attr("class", "node");
 
   // nodes
