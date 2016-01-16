@@ -4,6 +4,9 @@ var csv = new $G.CsvInput(" ", false, false);
 // console.log(csv);
 
 function loadGraphFromEdgeList(file) {
+  // clear memory
+  delete window.graph;
+
   // console.log(file);
   var start = +new Date(),
       end;

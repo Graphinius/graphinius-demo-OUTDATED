@@ -4,6 +4,9 @@ var json = new $G.JsonInput(false, false);
 // console.log(json);
 
 function loadGraphFromJSON(file) {
+  // clear memory
+  delete window.graph;
+
   // console.log(file);
   var start = +new Date(),
       onload,

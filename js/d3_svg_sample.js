@@ -1,7 +1,8 @@
 // MEASURING TIME
 var init = +new Date(),
     start,
-    end;
+    end,
+    coords;
 
 var DOMAIN_WIDTH  = 535,
     DOMAIN_HEIGHT = 525,
@@ -44,8 +45,8 @@ function renderGraph() {
 
   // Enter
   nodes.enter().append("circle")
-    .attr("cx", function(key) { return scale_x(nodes_obj[key].getFeature('coords').x) })
-    .attr("cy", function(key) { return scale_y(nodes_obj[key].getFeature('coords').y) })
+    .attr("cx", function(key) { return getXCoord(key) })
+    .attr("cy", function(key) { return getYCoord(key) })
     .attr("r", RADIUS)
     .attr("stroke", STROKE)
     .attr("stroke-width", STROKE_WIDTH)
@@ -66,6 +67,16 @@ function renderGraph() {
   console.log("Rendered graph in " + (end-start) + " ms.");
   // window.requestAnimationFrame(renderGraph);
 }
+
+
+function getXCoord(key) {
+  return (coords = nodes_obj[key].getFeature('coords')) ? scale_x(coords.x) : scale_x(Math.random()*(DOMAIN_WIDTH-8));
+}
+
+function getYCoord(key) {
+  return (coords = nodes_obj[key].getFeature('coords')) ? scale_y(coords.y) : scale_y(Math.random()*(DOMAIN_HEIGHT-8));
+}
+
 
 
 function mutilateGraphSingle() {
@@ -108,8 +119,8 @@ function mutilateGraph500() {
 
 
 function mutilateGraphTime() {
-  var start = +new Date();
   renderGraph();
+  var start = +new Date();
   var nr_nodes = graph.nrNodes();
   if ( nr_nodes ) {
     while (nr_nodes-- && (+new Date() - start) < 16 ) {
