@@ -33,10 +33,11 @@
     <!-- A FEW CONTROLS -->
     <h3> Controls: </h3>
     <div id="controls">
-      <button id="renderGraph" onclick="renderGraph()">Render Graph</button> </br>
+      <button id="renderGraph" onclick="resetSVG(); renderGraph()">(Re-)Render Graph</button> </br>
       <button id="mutilateSingle" onclick="mutilateGraphSingle()">Mutilate Graph (1 node / frame)</button> </br>
       <button id="mutilate50" onclick="mutilateGraph50()">Mutilate Graph (50 nodes / frame)</button> </br>
       <button id="mutilate500" onclick="mutilateGraph500()">Mutilate Graph (500 nodes / frame)</button> </br>
+      <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
       <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
     </div>
 
@@ -44,6 +45,11 @@
     <svg id="graphvis"> </svg>
     <!-- <div id="tester" style="width:600px;height:450px;"></div> -->
 
+    <div id="info-box">
+      <h2> Info Box </h2>
+    </div>
+
+    <div id="close-info-box" onclick="toggleInfoBox()"> T </div>
 
     <script src="./lib/graphinius.js"></script>
     <script src="./js/jsonLoader.js"></script>

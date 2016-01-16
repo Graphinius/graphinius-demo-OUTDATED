@@ -8,7 +8,7 @@ svg#graphvis {
   top: 20px;
   width: 1000px;
   height: 800px;
-  background-color: #111;
+  background-color: #eee;
 }
 
 button {
@@ -31,8 +31,38 @@ button:active {
 }
 
 .node {
-  stroke: rgb(144, 26, 67);
+  stroke: #901A43;
   stroke-width: 3;
   fill: #ddd;
-  /*fill-opacity: 0.5;*/
+}
+
+.node:hover, .node.active {
+  stroke: black;
+  stroke-width: 5px;
+  fill: #fff730;
+  cursor: pointer;
+}
+
+#info-box {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  bottom: 0;
+  width: 300px;
+  color: #eee;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.9);
+  transition: right 0.15s;
+}
+
+#close-info-box {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #777;
+  font-size: 24px;
+}
+
+#close-info-box:hover {
+  cursor: pointer;
 }

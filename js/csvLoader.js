@@ -40,6 +40,8 @@ function loadGraphFromEdgeList(file) {
     document.querySelector('#graph_info > .time').innerHTML = end-start + " ms";
     document.querySelector('#graph_info > .deg_dist').innerHTML = "N/A";
 
+    renderGraph();
+
   };
 
   // Read in the JSON file as TEXT.
