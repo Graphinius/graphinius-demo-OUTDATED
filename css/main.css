@@ -43,10 +43,15 @@ button:active {
   cursor: pointer;
 }
 
+.u_edge {
+  stroke: blue;
+  stroke-width: 1;
+}
+
 #info-box {
   position: absolute;
   top: 0;
-  right: 0px;
+  right: -316px;
   bottom: 0;
   width: 300px;
   color: #eee;

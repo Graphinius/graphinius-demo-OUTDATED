@@ -1,3 +1,6 @@
+var DOMAIN_WIDTH = 535,
+    DOMAIN_HEIGHT = 525;
+
 // no explicit edge direction
 // edges undirected per default
 var json = new $G.JsonInput(false, false);
@@ -6,6 +9,9 @@ var json = new $G.JsonInput(false, false);
 function loadGraphFromJSON(file) {
   // clear memory
   delete window.graph;
+
+  // TODO This hurts so much...
+  resetSVG();
 
   // console.log(file);
   var start = +new Date(),
@@ -28,6 +34,16 @@ function loadGraphFromJSON(file) {
     var jsonText = event.target.result;
     var jsonGraph = JSON.parse(jsonText);
     window.graph = json.readFromJSON(jsonGraph);
+
+    // TODO Separate out to sane location...
+    // get a sample & check if we have a graph without coordinates
+    // then give some to them ;)
+    if ( !graph.getRandomNode().getFeature('coords') ) {
+      for ( node_key in graph.getNodes() ) {
+        var c = {x: Math.random()*(DOMAIN_WIDTH-8), y: Math.random()*(DOMAIN_HEIGHT-8)};
+        graph.getNodeById(node_key).setFeature('coords', c);
+      }
+    }
 
     end = +new Date();
 

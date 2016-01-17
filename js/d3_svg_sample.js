@@ -2,7 +2,10 @@
 var init = +new Date(),
     start,
     end,
-    coords;
+    coords,
+    node_idx,
+    elements,
+    svg;
 
 var DOMAIN_WIDTH  = 535,
     DOMAIN_HEIGHT = 525,
@@ -19,26 +22,52 @@ var scale_y = d3.scale.linear()
             .domain([-8, DOMAIN_HEIGHT])  // Data space
             .range([0, HEIGHT]); // Pixel space
 
-var svg = d3.select("svg")
-            .attr('width', WIDTH)
-            .attr('height', HEIGHT);
+svg = d3.select("svg")
+        .attr('width', WIDTH)
+        .attr('height', HEIGHT);
 
-// but we need an array for D3.js
+
 function renderGraph() {
+
+  // TODO Separate out initialization phase...
+  if ( !window.node_obj || !window.node_keys) {
+    // Object
+    window.nodes_obj = window.graph.getNodes();
+    window.node_keys = Object.keys(window.nodes_obj);
+    window.und_edges = window.graph.getUndEdges();
+    window.und_edges_keys = Object.keys(window.und_edges);
+  }
+
   start = +new Date();
 
   svg = d3.select("svg")
               .attr('width', WIDTH)
               .attr('height', HEIGHT);
 
-  if ( !window.node_obj || !window.node_keys) {
-    // Object
-    window.nodes_obj = window.graph.getNodes();
-    window.node_keys = Object.keys(nodes_obj);
-  }
 
+  //-------------------------------------------------------
+  //                       UNDIRECTED EDGES
+  //-------------------------------------------------------
+
+  elements = svg.selectAll("line");
+  var u_edges = elements.data(und_edges_keys);
+
+  u_edges.enter().append("line")
+                 .attr("x1", function(key) { return getXCoord(und_edges[key]._node_a._id) })
+                 .attr("y1", function(key) { return getYCoord(und_edges[key]._node_a._id) })
+                 .attr("x2", function(key) { return getXCoord(und_edges[key]._node_b._id) })
+                 .attr("y2", function(key) { return getYCoord(und_edges[key]._node_b._id) })
+                 .attr("class", "u_edge");
+
+  u_edges.exit().remove();
+
+
+  //-------------------------------------------------------
+  //                       NODES
+  //-------------------------------------------------------
   // Select elements
-  var elements = svg.selectAll("circle");
+  elements = svg.selectAll("circle");
+
   // Bind data to elements
   var nodes = elements.data(node_keys);
   // console.log(nodes);
@@ -63,6 +92,9 @@ function renderGraph() {
   console.log("Rendered graph in " + (end-start) + " ms.");
   // window.requestAnimationFrame(renderGraph);
 }
+
+
+
 
 d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
@@ -107,11 +139,11 @@ function node_mouseout() {
 }
 
 function getXCoord(key) {
-  return (coords = nodes_obj[key].getFeature('coords')) ? scale_x(coords.x) : scale_x(Math.random()*(DOMAIN_WIDTH-8));
+  return ~~scale_x(nodes_obj[key].getFeature('coords').x);
 }
 
 function getYCoord(key) {
-  return (coords = nodes_obj[key].getFeature('coords')) ? scale_y(coords.y) : scale_y(Math.random()*(DOMAIN_HEIGHT-8));
+  return ~~scale_y(nodes_obj[key].getFeature('coords').y);
 }
 
 function toggleInfoBox() {
@@ -121,12 +153,6 @@ function toggleInfoBox() {
 
   info_box.style.right = right > 0 ? "0px" : "-316px";
 }
-
-
-
-
-
-
 
 
 function resetSVG() {

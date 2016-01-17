@@ -1,3 +1,6 @@
+var DOMAIN_WIDTH = 535,
+    DOMAIN_HEIGHT = 525;
+
 // no explicit edge direction
 // edges undirected per default
 var csv = new $G.CsvInput(" ", false, false);
@@ -6,6 +9,9 @@ var csv = new $G.CsvInput(" ", false, false);
 function loadGraphFromEdgeList(file) {
   // clear memory
   delete window.graph;
+
+  // TODO This hurts so much...
+  resetSVG();
 
   // console.log(file);
   var start = +new Date(),
@@ -29,6 +35,16 @@ function loadGraphFromEdgeList(file) {
     // console.log(csvGraph);
 
     window.graph = csv.readFromEdgeList(csvGraph, file.name);
+
+    // TODO Separate out to sane location...
+    // get a sample & check if we have a graph without coordinates
+    // then give some to them ;)
+    if ( !graph.getRandomNode().getFeature('coords') ) {
+      for ( node_key in graph.getNodes() ) {
+        var c = {x: Math.random()*(DOMAIN_WIDTH-8), y: Math.random()*(DOMAIN_HEIGHT-8)};
+        graph.getNodeById(node_key).setFeature('coords', c);
+      }
+    }
 
     end = +new Date();
 
