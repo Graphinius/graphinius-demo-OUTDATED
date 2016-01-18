@@ -46,14 +46,14 @@ function loadGraphFromJSON(file, directed) {
 
     end = +new Date();
 
-    console.log("Read graph with " + graph.nrNodes() + " nodes and " + graph.nrUndEdges() + " edges in " + (end-start) + " ms.");
+    console.log("Read graph with " + graph.nrNodes() + " nodes, " + graph.nrUndEdges() + " undirected edges, " + graph.nrDirEdges() + " directed edges in " + (end-start) + " ms.");
     console.log("Pure GraphiniusJS readfromJSON time: " + (end-onload) + " ms");
 
 
     document.querySelector('#graph_info > .nr_nodes').innerHTML = graph.nrNodes();
-    document.querySelector('#graph_info > .nr_edges').innerHTML = graph.nrUndEdges();
+    document.querySelector('#graph_info > .nr_und_edges').innerHTML = graph.nrUndEdges();
+    document.querySelector('#graph_info > .nr_dir_edges').innerHTML = graph.nrDirEdges();
     document.querySelector('#graph_info > .time').innerHTML = (end-start) + " ms";
-    document.querySelector('#graph_info > .deg_dist').innerHTML = "N/A";
 
     renderGraph();
   };
