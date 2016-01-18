@@ -36,30 +36,56 @@ function renderGraph() {
     window.node_keys = Object.keys(window.nodes_obj);
     window.und_edges = window.graph.getUndEdges();
     window.und_edges_keys = Object.keys(window.und_edges);
+    window.dir_edges = window.graph.getDirEdges();
+    window.dir_edges_keys = Object.keys(window.dir_edges);
   }
 
   start = +new Date();
 
   svg = d3.select("svg")
-              .attr('width', WIDTH)
-              .attr('height', HEIGHT);
+          .attr('width', WIDTH)
+          .attr('height', HEIGHT);
+
+  svg.append("defs").append("marker")
+                    .attr("id", "marker_d_edge")
+                    .attr("viewBox", "0 -5 10 10")
+                    .attr("refX", 13)
+                    .attr("refY", 0)
+                    .attr("markerWidth", 10)
+                    .attr("markerHeight", 10)
+                    .attr("orient", "auto")
+                    .attr("class", "marker_d_edge")
+                    .append("path")
+                      .attr("d", "M0, -5L10, 0L0, 5");
 
 
   //-------------------------------------------------------
   //                       UNDIRECTED EDGES
   //-------------------------------------------------------
 
-  elements = svg.selectAll("line");
+  elements = svg.selectAll(".u_edge");
   var u_edges = elements.data(und_edges_keys);
 
-  u_edges.enter().append("line")
-                 .attr("x1", function(key) { return getXCoord(und_edges[key]._node_a._id) })
-                 .attr("y1", function(key) { return getYCoord(und_edges[key]._node_a._id) })
-                 .attr("x2", function(key) { return getXCoord(und_edges[key]._node_b._id) })
-                 .attr("y2", function(key) { return getYCoord(und_edges[key]._node_b._id) })
+  u_edges.enter().append("path")
+                 .attr("d", function(key) { return buildEdgePath(und_edges, key) })
                  .attr("class", "u_edge");
 
   u_edges.exit().remove();
+
+
+  //-------------------------------------------------------
+  //                       DIRECTED EDGES
+  //-------------------------------------------------------
+
+  elements = svg.selectAll(".d_edge");
+  var d_edges = elements.data(dir_edges_keys);
+
+  d_edges.enter().append("path")
+                 .attr("d", function(key) { return buildEdgePath(dir_edges, key) })
+                 .attr("marker-end", "url(#marker_d_edge)")
+                 .attr("class", "d_edge");
+
+  d_edges.exit().remove();
 
 
   //-------------------------------------------------------
@@ -94,6 +120,15 @@ function renderGraph() {
 }
 
 
+function buildEdgePath(edges, key) {
+  var d = "M ";
+  d += getXCoord(edges[key]._node_a._id) + " ";
+  d += getYCoord(edges[key]._node_a._id) + " ";
+  d += "L ";
+  d += getXCoord(edges[key]._node_b._id) + " ";
+  d += getYCoord(edges[key]._node_b._id) + " ";
+  return d;
+}
 
 
 d3.selection.prototype.moveToFront = function() {
@@ -115,7 +150,7 @@ function node_click() {
 
   if( active ) {
     var info_box = document.getElementById('info-box');
-    info_box.style.right = "0px";
+    // info_box.style.right = "0px";
     // Show info in info box
     var info = "<h4> Node info: </h4>";
     info += "ID: " + id + "</br>";

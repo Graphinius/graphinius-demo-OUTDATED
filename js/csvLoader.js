@@ -1,12 +1,11 @@
 var DOMAIN_WIDTH = 535,
     DOMAIN_HEIGHT = 525;
 
-// no explicit edge direction
-// edges undirected per default
-var csv = new $G.CsvInput(" ", false, false);
-// console.log(csv);
 
-function loadGraphFromEdgeList(file) {
+function loadGraphFromEdgeList(file, directed) {
+
+  var csv = new $G.CsvInput(" ", false, directed);
+
   // clear memory
   delete window.graph;
 

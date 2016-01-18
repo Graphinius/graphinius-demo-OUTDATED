@@ -9,10 +9,17 @@
   <body>
 
     <h3> Load Graph via JSON (undirected): </h3>
-    <input type="file" id="input_json" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0])">
+    <input type="file" id="input_json_und" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], false)">
+
+    <h3> Load Graph via JSON (directed): </h3>
+    <input type="file" id="input_json_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], true)">
 
     <h3> Load Graph via Edge List (undirected): </h3>
-    <input type="file" id="input_csv_edge" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0])">
+    <input type="file" id="input_csv_edge_und" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], false)">
+
+    <h3> Load Graph via Edge List (directed): </h3>
+    <input type="file" id="input_csv_edge_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], true)">
+
 
     <h3> Graph Info: </h3>
     <div id="graph_info">

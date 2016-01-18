@@ -1,12 +1,11 @@
 var DOMAIN_WIDTH = 535,
     DOMAIN_HEIGHT = 525;
 
-// no explicit edge direction
-// edges undirected per default
-var json = new $G.JsonInput(false, false);
-// console.log(json);
 
-function loadGraphFromJSON(file) {
+function loadGraphFromJSON(file, directed) {
+
+  var json = new $G.JsonInput(false, directed);
+
   // clear memory
   delete window.graph;
 

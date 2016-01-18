@@ -43,7 +43,13 @@ button:active {
   cursor: pointer;
 }
 
-.u_edge {
+.u_edge, .d_edge {
+  stroke: blue;
+  stroke-width: 1;
+}
+
+.marker_d_edge {
+  fill: none;
   stroke: blue;
   stroke-width: 1;
 }
@@ -58,6 +64,7 @@ button:active {
   padding: 8px;
   background-color: rgba(0, 0, 0, 0.9);
   transition: right 0.15s;
+  z-index: 500;
 }
 
 #close-info-box {
@@ -66,6 +73,7 @@ button:active {
   right: 8px;
   color: #777;
   font-size: 24px;
+  z-index: 1000;
 }
 
 #close-info-box:hover {
