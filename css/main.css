@@ -49,7 +49,7 @@ button:active {
 }
 
 .marker_d_edge {
-  fill: none;
+  fill: blue;
   stroke: blue;
   stroke-width: 1;
 }

@@ -5,7 +5,8 @@ var init = +new Date(),
     coords,
     node_idx,
     elements,
-    svg;
+    svg,
+    svg_container;
 
 var DOMAIN_WIDTH  = 535,
     DOMAIN_HEIGHT = 525,
@@ -22,10 +23,12 @@ var scale_y = d3.scale.linear()
             .domain([-8, DOMAIN_HEIGHT])  // Data space
             .range([0, HEIGHT]); // Pixel space
 
-svg = d3.select("svg")
-        .attr('width', WIDTH)
-        .attr('height', HEIGHT);
-
+// svg_container = d3.select("svg")
+//         .attr('width', WIDTH)
+//         .attr('height', HEIGHT);
+//
+// svg = svg_container.append("g")
+//                    .attr("class", "svg-pan-zoom_viewport");
 
 function renderGraph() {
 
@@ -42,17 +45,17 @@ function renderGraph() {
 
   start = +new Date();
 
-  svg = d3.select("svg")
+  svg = d3.select("svg#graphvis").select("g.svg-pan-zoom_viewport")
           .attr('width', WIDTH)
           .attr('height', HEIGHT);
 
   svg.append("defs").append("marker")
                     .attr("id", "marker_d_edge")
                     .attr("viewBox", "0 -5 10 10")
-                    .attr("refX", 13)
+                    .attr("refX", 18)
                     .attr("refY", 0)
-                    .attr("markerWidth", 10)
-                    .attr("markerHeight", 10)
+                    .attr("markerWidth", 6)
+                    .attr("markerHeight", 6)
                     .attr("orient", "auto")
                     .attr("class", "marker_d_edge")
                     .append("path")
@@ -113,6 +116,8 @@ function renderGraph() {
 
   // EXIT PHASE
   nodes.exit().remove();
+
+  initSVGPanZoom();
 
   end = +new Date();
   console.log("Rendered graph in " + (end-start) + " ms.");
@@ -195,6 +200,7 @@ function resetSVG() {
   d3.select("body")
     .append("svg")
     .attr("id", "graphvis");
+  initSVGPanZoom();
 }
 
 
