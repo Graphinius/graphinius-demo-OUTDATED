@@ -32,8 +32,9 @@ button:active {
 
 .node {
   stroke: #901A43;
-  stroke-width: 3;
+  stroke-width: 2;
   fill: #ddd;
+  z-index
 }
 
 .node:hover, .node.active {
@@ -45,13 +46,16 @@ button:active {
 
 .u_edge, .d_edge {
   stroke: blue;
+  stroke-opacity: 0.2;
   stroke-width: 1;
 }
 
 .marker_d_edge {
   fill: blue;
+  fill-opacity: 0.2;
   stroke: blue;
   stroke-width: 1;
+  stroke-opacity: 0.2;
 }
 
 #info-box {

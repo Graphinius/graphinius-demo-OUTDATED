@@ -6,13 +6,19 @@ var init = +new Date(),
     node_idx,
     elements,
     svg,
-    svg_container;
+    svg_container,
+    nodes_obj,
+    node_keys,
+    und_edges,
+    und_edges_keys,
+    dir_edges,
+    dir_edges_keys;
 
 var DOMAIN_WIDTH  = 535,
     DOMAIN_HEIGHT = 525,
     WIDTH         = 1000,
     HEIGHT        = 800,
-    RADIUS        = 4,
+    RADIUS        = 3,
     RADIUS_ACTIVE = 10;
 
 var scale_x = d3.scale.linear()
@@ -32,16 +38,12 @@ var scale_y = d3.scale.linear()
 
 function renderGraph() {
 
-  // TODO Separate out initialization phase...
-  if ( !window.node_obj || !window.node_keys) {
-    // Object
-    window.nodes_obj = window.graph.getNodes();
-    window.node_keys = Object.keys(window.nodes_obj);
-    window.und_edges = window.graph.getUndEdges();
-    window.und_edges_keys = Object.keys(window.und_edges);
-    window.dir_edges = window.graph.getDirEdges();
-    window.dir_edges_keys = Object.keys(window.dir_edges);
-  }
+  nodes_obj = graph.getNodes();
+  node_keys = Object.keys(nodes_obj);
+  und_edges = graph.getUndEdges();
+  und_edges_keys = Object.keys(und_edges);
+  dir_edges = graph.getDirEdges();
+  dir_edges_keys = Object.keys(dir_edges);
 
   start = +new Date();
 
@@ -66,7 +68,7 @@ function renderGraph() {
   //                       UNDIRECTED EDGES
   //-------------------------------------------------------
 
-  elements = svg.selectAll(".u_edge");
+  elements = svg.selectAll("path.u_edge");
   var u_edges = elements.data(und_edges_keys);
 
   u_edges.enter().append("path")
@@ -80,7 +82,7 @@ function renderGraph() {
   //                       DIRECTED EDGES
   //-------------------------------------------------------
 
-  elements = svg.selectAll(".d_edge");
+  elements = svg.selectAll("path.d_edge");
   var d_edges = elements.data(dir_edges_keys);
 
   d_edges.enter().append("path")
@@ -208,7 +210,7 @@ function mutilateGraphSingle() {
   renderGraph();
   var nr_nodes = graph.nrNodes();
   if ( nr_nodes-- ) {
-    graph.removeNode(graph.getNodeById(node_keys[nr_nodes]));
+    graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
     console.log( graph.nrNodes() );
     requestAnimationFrame(mutilateGraphSingle);
   }
@@ -221,7 +223,7 @@ function mutilateGraph50() {
       count = 50;
   if ( nr_nodes ) {
     while (count-- && nr_nodes--) {
-      graph.removeNode(graph.getNodeById(node_keys[nr_nodes]));
+      graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
     }
     console.log( graph.nrNodes() );
     requestAnimationFrame(mutilateGraph50);
@@ -235,7 +237,7 @@ function mutilateGraph500() {
       count = 500;
   if ( nr_nodes ) {
     while (count-- && nr_nodes--) {
-      graph.removeNode(graph.getNodeById(node_keys[nr_nodes]));
+      graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
     }
     console.log( graph.nrNodes() );
     requestAnimationFrame(mutilateGraph500);
@@ -249,7 +251,7 @@ function mutilateGraphTime() {
   var nr_nodes = graph.nrNodes();
   if ( nr_nodes ) {
     while (nr_nodes-- && (+new Date() - start) < 16 ) {
-      graph.removeNode(graph.getNodeById(node_keys[nr_nodes]));
+      graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
     }
     console.log( graph.nrNodes() );
     requestAnimationFrame(mutilateGraphTime);
