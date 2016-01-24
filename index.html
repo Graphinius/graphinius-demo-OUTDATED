@@ -8,17 +8,49 @@
 
   <body>
 
-    <h3> Load Graph via JSON (undirected): </h3>
-    <input type="file" id="input_json_und" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], false)">
+    <strong> Load Graph via JSON (undirected): </strong> <br/>
+    <input type="file" id="input_json_und" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], false)"> <br/>
 
-    <h3> Load Graph via JSON (directed): </h3>
-    <input type="file" id="input_json_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], true)">
+    <strong> Load Graph via JSON (directed): </strong> <br/>
+    <input type="file" id="input_json_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], true)"> <br/>
 
-    <h3> Load Graph via Edge List (undirected): </h3>
-    <input type="file" id="input_csv_edge_und" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], false)">
+    <strong> Load Graph via Edge List (undirected): </strong> <br/>
+    <input type="file" id="input_csv_edge_und" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], false)"> <br/>
 
-    <h3> Load Graph via Edge List (directed): </h3>
-    <input type="file" id="input_csv_edge_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], true)">
+    <strong> Load Graph via Edge List (directed): </strong> <br/>
+    <input type="file" id="input_csv_edge_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], true)"> <br/>
+
+    <!-- A FEW CONTROLS -->
+    <h3> Controls: </h3>
+    <div id="controls">
+      <button id="renderGraph" onclick="resetSVG(); renderGraph()">(Re-)Render Graph</button> </br>
+      <button id="mutilateSingle" onclick="mutilateGraphSingle()">Mutilate Graph (1 node / frame)</button> </br>
+      <button id="mutilate50" onclick="mutilateGraph50()">Mutilate Graph (50 nodes / frame)</button> </br>
+      <button id="mutilate500" onclick="mutilateGraph500()">Mutilate Graph (500 nodes / frame)</button> </br>
+      <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
+      <br/>
+
+      <!-- RANDOM EDGES BY PROBABILITY -->
+      <strong>Create random edges by probability</strong> <br/>
+      <strong>Caution: O(n^2), easily freezes browser! </strong> <br/>
+      Edge probability:
+      <input id="edgeProbRange" type=range min=0 max=.2 value=0.01 step=.0001 onInput="updateEdgeProbInfo()">
+      <span id="edge_addition_prob">0.01</span>
+      <br/>
+      <button id="dirEdgesProb" onclick="createDirEdgesProb()"> Directed </button>
+      <button id="undEdgesProb" onclick="createUndEdgesProb()">Undirected </button> </br>
+      <br/>
+
+      <!-- RANDOM EDGES BY MIN / MAX DEGREE -->
+      <strong>Create random edges by min/max deg.</strong> <br/>
+      <strong>O(n^2) worst, O((max-min)*n) average </strong> <br/>
+      Min: <input id="min_edge_deg" type=text size="5" value="0"/>
+      Max: <input id="max_edge_deg" type=text size="5" value="0"/> <br/>
+      <button id="dirEdgesSpan" onclick="createDirEdgesSpan()"> Directed </button>
+      <button id="undEdgesSpan" onclick="createUndEdgesSpan()">Undirected </button> </br>
+
+
+    </div>
 
 
     <h3> Graph Info: </h3>
@@ -37,20 +69,9 @@
     </div>
 
 
-    <!-- A FEW CONTROLS -->
-    <h3> Controls: </h3>
-    <div id="controls">
-      <button id="renderGraph" onclick="resetSVG(); renderGraph()">(Re-)Render Graph</button> </br>
-      <button id="mutilateSingle" onclick="mutilateGraphSingle()">Mutilate Graph (1 node / frame)</button> </br>
-      <button id="mutilate50" onclick="mutilateGraph50()">Mutilate Graph (50 nodes / frame)</button> </br>
-      <button id="mutilate500" onclick="mutilateGraph500()">Mutilate Graph (500 nodes / frame)</button> </br>
-      <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
-      <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
-    </div>
-
 
     <svg id="graphvis">
-      <!-- <g class="svg-pan-zoom_viewport"></g> -->
+      <g class="svg-pan-zoom_viewport"></g>
     </svg>
 
     <div id="info-box">
@@ -67,6 +88,7 @@
     <script src="./lib/svg-pan-zoom.min.js"></script>
 
     <script src="./js/d3_svg_sample.js"></script>
+    <script src="./js/ui_controls.js"></script>
     <script src="./js/svg-pan-zoom-init.js"></script>
 
   </body>

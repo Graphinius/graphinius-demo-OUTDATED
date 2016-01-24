@@ -5,7 +5,7 @@ function initSVGPanZoom() {
         panEnabled: true,
         controlIconsEnabled: true,
         fit: false,
-        center: true,
+        center: false,
         minZoom: 0.75,
         maxZoom: 50,
         zoomScaleSensitivity: 0.25,

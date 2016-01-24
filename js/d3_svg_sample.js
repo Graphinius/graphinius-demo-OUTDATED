@@ -75,6 +75,11 @@ function renderGraph() {
                  .attr("d", function(key) { return buildEdgePath(und_edges, key) })
                  .attr("class", "u_edge");
 
+  u_edges
+    .attr("d", function(key) { return buildEdgePath(und_edges, key) })
+    .attr("class", "u_edge");
+
+
   u_edges.exit().remove();
 
 
@@ -89,6 +94,11 @@ function renderGraph() {
                  .attr("d", function(key) { return buildEdgePath(dir_edges, key) })
                  .attr("marker-end", "url(#marker_d_edge)")
                  .attr("class", "d_edge");
+
+   d_edges
+      .attr("d", function(key) { return buildEdgePath(dir_edges, key) })
+      .attr("marker-end", "url(#marker_d_edge)")
+      .attr("class", "d_edge");
 
   d_edges.exit().remove();
 
