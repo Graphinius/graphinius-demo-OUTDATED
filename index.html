@@ -25,10 +25,8 @@
     <div id="controls">
       <button id="renderGraph" onclick="resetSVG(); renderGraph()">Visualize Graph SVG</button> </br>
       <button id="renderGraph" onclick="renderGraphViva()">Visualize Graph WebGL</button> </br>
-      <button id="mutilateSingle" onclick="mutilateGraphSingle()">Mutilate Graph (1 node / frame)</button> </br>
-      <button id="mutilate50" onclick="mutilateGraph50()">Mutilate Graph (50 nodes / frame)</button> </br>
-      <button id="mutilate500" onclick="mutilateGraph500()">Mutilate Graph (500 nodes / frame)</button> </br>
-      <button id="mutilateTime" onclick="mutilateGraphTime()">Mutilate Graph (max nodes / frame)</button> </br>
+      <button id="mutilateD3" onclick="mutilateGraphD3()">Mutilate Graph D3 / SVG</button> </br>
+      <button id="mutilateViva" onclick="mut_count = 100; mutilateGraphViva(10)">Mutilate Graph WebGL</button> </br>
       <br/>
 
       <!-- RANDOM EDGES BY PROBABILITY -->

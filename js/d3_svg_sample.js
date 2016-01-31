@@ -216,18 +216,7 @@ function resetSVG() {
 }
 
 
-function mutilateGraphSingle() {
-  renderGraph();
-  var nr_nodes = graph.nrNodes();
-  if ( nr_nodes-- ) {
-    graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
-    console.log( graph.nrNodes() );
-    requestAnimationFrame(mutilateGraphSingle);
-  }
-}
-
-
-function mutilateGraph50() {
+function mutilateGraphD3(count) {
   renderGraph();
   var nr_nodes = graph.nrNodes(),
       count = 50;
@@ -236,34 +225,6 @@ function mutilateGraph50() {
       graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
     }
     console.log( graph.nrNodes() );
-    requestAnimationFrame(mutilateGraph50);
-  }
-}
-
-
-function mutilateGraph500() {
-  renderGraph();
-  var nr_nodes = graph.nrNodes(),
-      count = 500;
-  if ( nr_nodes ) {
-    while (count-- && nr_nodes--) {
-      graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
-    }
-    console.log( graph.nrNodes() );
-    requestAnimationFrame(mutilateGraph500);
-  }
-}
-
-
-function mutilateGraphTime() {
-  renderGraph();
-  var start = +new Date();
-  var nr_nodes = graph.nrNodes();
-  if ( nr_nodes ) {
-    while (nr_nodes-- && (+new Date() - start) < 16 ) {
-      graph.deleteNode(graph.getNodeById(node_keys[nr_nodes]));
-    }
-    console.log( graph.nrNodes() );
-    requestAnimationFrame(mutilateGraphTime);
+    requestAnimationFrame(mutilateGraphD3);
   }
 }

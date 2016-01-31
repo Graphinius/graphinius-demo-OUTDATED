@@ -1,4 +1,5 @@
 var vigraph;
+var mut_count;
 
 function renderGraphViva() {
 
@@ -11,6 +12,10 @@ function renderGraphViva() {
 
   // console.log(window.graph.getStats());
   var nodes = window.graph.getNodes();
+  var node_data = {
+    color: "#901a43ff",
+    shape: "circle"
+  }
   var dir_edges = window.graph.getDirEdges();
   var und_edges = window.graph.getUndEdges();
 
@@ -33,6 +38,12 @@ function renderGraphViva() {
   }
 
   var graphics = Viva.Graph.View.webglGraphics();
+  graphics.node(function(node) {
+    return Viva.Graph.View.webglSquare(24, "#538effaf");
+  });
+  graphics.link(function(link) {
+    return Viva.Graph.View.webglLine("#81cf287f");
+  });
 
   var renderer = Viva.Graph.View.renderer(vigraph,
       {
@@ -46,17 +57,17 @@ function renderGraphViva() {
 function mutilateGraphViva() {
   var nr_nodes = window.graph.nrNodes(),
       node_keys = Object.keys(window.graph.getNodes()),
-      key;
-  if ( nr_nodes-- ) {
-    key = node_keys[nr_nodes];
-    console.log(key);
-    graph.deleteNode(graph.getNodeById(key));
+      key,
+      count = mut_count;
+      // console.log(count);
+  if ( nr_nodes ) {
+    while (count-- && nr_nodes--) {
+      key = node_keys[nr_nodes];
+      graph.deleteNode(graph.getNodeById(key));
+      vigraph.removeNode(key);
+    }
     console.log( graph.nrNodes() );
 
-    // vigraph.forEachLinkedNode(key, function(linkedNode, link){
-    //   vigraph.removeLink(link);
-    // });
-    vigraph.removeNode(key);
     requestAnimationFrame(mutilateGraphViva);
   }
 
