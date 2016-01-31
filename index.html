@@ -23,7 +23,8 @@
     <!-- A FEW CONTROLS -->
     <h3> Controls: </h3>
     <div id="controls">
-      <button id="renderGraph" onclick="resetSVG(); renderGraph()">(Re-)Render Graph</button> </br>
+      <button id="renderGraph" onclick="resetSVG(); renderGraph()">Visualize Graph SVG</button> </br>
+      <button id="renderGraph" onclick="renderGraphViva()">Visualize Graph WebGL</button> </br>
       <button id="mutilateSingle" onclick="mutilateGraphSingle()">Mutilate Graph (1 node / frame)</button> </br>
       <button id="mutilate50" onclick="mutilateGraph50()">Mutilate Graph (50 nodes / frame)</button> </br>
       <button id="mutilate500" onclick="mutilateGraph500()">Mutilate Graph (500 nodes / frame)</button> </br>
@@ -69,6 +70,7 @@
     </div>
 
 
+    <div id="vivagraph-vis"> </div>
 
     <svg id="graphvis">
       <g class="svg-pan-zoom_viewport"></g>
@@ -90,6 +92,9 @@
     <script src="./js/d3_svg_sample.js"></script>
     <script src="./js/ui_controls.js"></script>
     <script src="./js/svg-pan-zoom-init.js"></script>
+
+    <script src="./lib/vivagraph.min.js"></script>
+    <script src="./js/vivaGraphVis.js"></script>
 
   </body>
 </html>

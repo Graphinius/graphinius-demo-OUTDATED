@@ -54,8 +54,6 @@ function loadGraphFromJSON(file, directed) {
     document.querySelector('#graph_info > .nr_und_edges').innerHTML = graph.nrUndEdges();
     document.querySelector('#graph_info > .nr_dir_edges').innerHTML = graph.nrDirEdges();
     document.querySelector('#graph_info > .time').innerHTML = (end-start) + " ms";
-
-    renderGraph();
   };
 
   // Read in the JSON file as TEXT.
