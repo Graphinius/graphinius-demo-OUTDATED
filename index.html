@@ -8,63 +8,69 @@
 
   <body>
 
-    <strong> Load Graph via JSON (undirected): </strong> <br/>
-    <input type="file" id="input_json_und" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], false)"> <br/>
-
-    <strong> Load Graph via JSON (directed): </strong> <br/>
-    <input type="file" id="input_json_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], true)"> <br/>
-
-    <strong> Load Graph via Edge List (undirected): </strong> <br/>
-    <input type="file" id="input_csv_edge_und" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], false)"> <br/>
-
-    <strong> Load Graph via Edge List (directed): </strong> <br/>
-    <input type="file" id="input_csv_edge_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], true)"> <br/>
-
-    <!-- A FEW CONTROLS -->
-    <h3> Controls: </h3>
     <div id="controls">
-      <button id="renderGraph" onclick="resetSVG(); renderGraph()">Visualize Graph SVG</button> </br>
-      <button id="renderGraph" onclick="renderGraphViva()">Visualize Graph WebGL</button> </br>
-      <button id="mutilateD3" onclick="mutilateGraphD3()">Mutilate Graph D3 / SVG</button> </br>
-      <button id="mutilateViva" onclick="mut_count = 100; mutilateGraphViva(10)">Mutilate Graph WebGL</button> </br>
-      <br/>
 
-      <!-- RANDOM EDGES BY PROBABILITY -->
-      <strong>Create random edges by probability</strong> <br/>
-      <strong>Caution: O(n^2), easily freezes browser! </strong> <br/>
-      Edge probability:
-      <input id="edgeProbRange" type=range min=0 max=.2 value=0.01 step=.0001 onInput="updateEdgeProbInfo()">
-      <span id="edge_addition_prob">0.01</span>
-      <br/>
-      <button id="dirEdgesProb" onclick="createDirEdgesProb()"> Directed </button>
-      <button id="undEdgesProb" onclick="createUndEdgesProb()">Undirected </button> </br>
-      <br/>
+      <strong> Load Graph via JSON (undirected): </strong> <br/>
+      <input type="file" id="input_json_und" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], false)"> <br/>
 
-      <!-- RANDOM EDGES BY MIN / MAX DEGREE -->
-      <strong>Create random edges by min/max deg.</strong> <br/>
-      <strong>O(n^2) worst, O((max-min)*n) average </strong> <br/>
-      Min: <input id="min_edge_deg" type=text size="5" value="0"/>
-      Max: <input id="max_edge_deg" type=text size="5" value="0"/> <br/>
-      <button id="dirEdgesSpan" onclick="createDirEdgesSpan()"> Directed </button>
-      <button id="undEdgesSpan" onclick="createUndEdgesSpan()">Undirected </button> </br>
+      <strong> Load Graph via JSON (directed): </strong> <br/>
+      <input type="file" id="input_json_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromJSON(this.files[0], true)"> <br/>
+
+      <strong> Load Graph via Edge List (undirected): </strong> <br/>
+      <input type="file" id="input_csv_edge_und" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], false)"> <br/>
+
+      <strong> Load Graph via Edge List (directed): </strong> <br/>
+      <input type="file" id="input_csv_edge_dir" onclick="javascript:this.value = null;" onchange="loadGraphFromEdgeList(this.files[0], true)"> <br/>
+
+      <!-- A FEW CONTROLS -->
+      <h3> Actions: </h3>
+      <div id="actions">
+        <strong> D3 / SVG </strong> <br/>
+        <button id="renderGraphD3" onclick="resetSVG(); renderGraph()">Visualize Graph</button> </br>
+        <button id="mutilateD3" onclick="mutilateGraphD3()">Mutilate Graph</button> </br>
+
+        <strong> Viva / WebGL </strong> <br/>
+        <button id="renderGraphViva" onclick="renderGraphViva()">Visualize Graph MonoColor</button> </br>
+        <button id="renderGraphVivaCol" onclick="rand_color = true; renderGraphViva()">Visualize Graph RandColor</button> </br>
+        <button id="mutilateViva" onclick="mut_count = 100; mutilateGraphViva(10)">Mutilate Graph</button> </br>
+        <br/>
+
+        <!-- RANDOM EDGES BY PROBABILITY -->
+        <strong>Create random edges by probability</strong> <br/>
+        <strong>Caution: O(n^2), easily freezes browser! </strong> <br/>
+        Edge probability:
+        <input id="edgeProbRange" type=range min=0 max=.2 value=0.01 step=.0001 onInput="updateEdgeProbInfo()">
+        <span id="edge_addition_prob">0.01</span>
+        <br/>
+        <button id="dirEdgesProb" onclick="createDirEdgesProb()"> Directed </button>
+        <button id="undEdgesProb" onclick="createUndEdgesProb()">Undirected </button> </br>
+        <br/>
+
+        <!-- RANDOM EDGES BY MIN / MAX DEGREE -->
+        <strong>Create random edges by min/max deg.</strong> <br/>
+        <strong>O(n^2) worst, O((max-min)*n) average </strong> <br/>
+        Min: <input id="min_edge_deg" type=text size="5" value="0"/>
+        Max: <input id="max_edge_deg" type=text size="5" value="0"/> <br/>
+        <button id="dirEdgesSpan" onclick="createDirEdgesSpan()"> Directed </button>
+        <button id="undEdgesSpan" onclick="createUndEdgesSpan()">Undirected </button> </br>
+      </div>
 
 
-    </div>
+      <h3> Graph Info: </h3>
+      <div id="graph_info">
+        # Nodes:
+        <span class="nr_nodes"> </span> </br>
 
+        # Directed edges:
+        <span class="nr_dir_edges"> </span> </br>
 
-    <h3> Graph Info: </h3>
-    <div id="graph_info">
-      # Nodes:
-      <span class="nr_nodes"> </span> </br>
+        # Undirected edges:
+        <span class="nr_und_edges"> </span> </br>
 
-      # Directed edges:
-      <span class="nr_dir_edges"> </span> </br>
+        Time to read:
+        <span class="time"> </span> </br>
+      </div>
 
-      # Undirected edges:
-      <span class="nr_und_edges"> </span> </br>
-
-      Time to read:
-      <span class="time"> </span> </br>
     </div>
 
 
@@ -74,10 +80,11 @@
       <g class="svg-pan-zoom_viewport"></g>
     </svg>
 
+
+    <!-- INFO BOX -->
     <div id="info-box">
       <h2> Info Box </h2>
     </div>
-
     <div id="close-info-box" onclick="toggleInfoBox()"> T </div>
 
     <script src="./lib/graphinius.js"></script>

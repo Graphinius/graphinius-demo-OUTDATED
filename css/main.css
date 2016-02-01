@@ -2,13 +2,38 @@
   font-size: 18px;
 }
 
+body {
+  overflow: hidden;
+}
+
 #vivagraph-vis, svg#graphvis {
   position: absolute;
-  left: 320px;
-  top: 20px;
-  width: 1000px;
-  height: 800px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
   background-color: #050505;
+  background:
+    /* top, transparent black, faked with gradient */
+    linear-gradient(
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url(../img/osneb3.jpg) fixed;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+#controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+
+  color: white;
 }
 
 button {
@@ -66,7 +91,7 @@ button:active {
   width: 300px;
   color: #eee;
   padding: 8px;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.3);
   transition: right 0.15s;
   z-index: 500;
   display: none;

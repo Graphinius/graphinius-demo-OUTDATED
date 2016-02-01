@@ -38,3 +38,12 @@ function createDirEdgesSpan() {
 function createUndEdgesSpan() {
   createRandomEdgesSpan(false);
 }
+
+function toggleInfoBox() {
+  var info_box = document.getElementById('info-box');
+  var right = window.getComputedStyle(info_box).getPropertyValue('right').match(/\d+/g)[0];
+  console.log(right);
+
+  info_box.style.display = right > 0 ? "block" : "none";
+  info_box.style.right = right > 0 ? "0px" : "-316px";
+}
