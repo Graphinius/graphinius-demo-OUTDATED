@@ -6,13 +6,12 @@ body {
   overflow: hidden;
 }
 
-#vivagraph-vis, svg#graphvis {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  background-color: #050505;
+#bg-blurry {
+  position: fixed;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
   background:
     /* top, transparent black, faked with gradient */
     linear-gradient(
@@ -22,6 +21,17 @@ body {
     url(../img/osneb3.jpg) fixed;
     background-size: cover;
     background-position: 50% 50%;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+}
+
+#vivagraph-vis, svg#graphvis {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: transparent;
 }
 
 #controls {
