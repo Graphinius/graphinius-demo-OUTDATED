@@ -4,7 +4,7 @@ var DOMAIN_WIDTH = 535,
 
 function loadGraphFromEdgeList(file, directed) {
 
-  var csv = new $G.CsvInput(" ", false, directed);
+  var csv = new $G.input.CsvInput(" ", false, directed);
 
   // clear memory
   delete window.graph;

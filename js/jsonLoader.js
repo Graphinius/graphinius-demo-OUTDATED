@@ -4,7 +4,7 @@ var DOMAIN_WIDTH = 535,
 
 function loadGraphFromJSON(file, directed) {
 
-  var json = new $G.JsonInput(false, directed);
+  var json = new $G.input.JsonInput(false, directed);
 
   // clear memory
   delete window.graph;
