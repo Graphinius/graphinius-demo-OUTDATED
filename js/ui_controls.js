@@ -47,3 +47,42 @@ function toggleInfoBox() {
   info_box.style.display = right > 0 ? "block" : "none";
   info_box.style.right = right > 0 ? "0px" : "-316px";
 }
+
+function degTime() {
+  var start = +new Date
+  var deg_dist = graph.degreeDistribution()
+  var end = +new Date
+  console.log('Time taken to compute degree histogram: ' + (end-start) + ' ms.')
+  return deg_dist
+}
+
+function bfsTime() {
+  var start = +new Date
+  var bfs_res = $G.search.BFS(graph, graph.getRandomNode())
+  var end = +new Date
+  console.log('Time taken to compute BFS: ' + (end-start) + ' ms.')
+  return bfs_res;
+}
+
+function dfsTime() {
+  var start = +new Date
+  var dfs_res = $G.search.DFS(graph, graph.getRandomNode())
+  var end = +new Date
+  console.log('Time taken to compute DFS: ' + (end-start) + ' ms.')
+  return dfs_res;
+}
+
+function runStatistics() {
+  console.log("")
+  console.log("// Browser test using local CSV edge list file.");
+  console.log("Starting GraphiniusJS edge list import @ " + window.start + " ms.");
+  console.log("Graph imported @ " + window.end + " ms.");
+  console.log("Time taken to import: " + (end-start) + " ms.");
+  console.log("============================================================");
+  console.log("Number of nodes read: " + graph.nrNodes());
+  console.log("Number of edges read: " + graph.nrUndEdges());
+  console.log("============================================================");
+  degTime()
+  bfsTime()
+  dfsTime()
+}

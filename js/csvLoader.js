@@ -10,11 +10,11 @@ function loadGraphFromEdgeList(file, directed) {
   delete window.graph;
 
   // TODO This hurts so much...
-  resetSVG();
+  // resetSVG();
 
   // console.log(file);
-  var start = +new Date(),
-      end;
+  window.start = +new Date(),
+  window.end;
 
   var name = file.name.split(".");
   // console.log(name);
@@ -28,10 +28,8 @@ function loadGraphFromEdgeList(file, directed) {
 
   reader.onload = function(event) {
     var csvText = event.target.result;
-    // console.log(csvText);
 
     var csvGraph = csvText.toString().split('\n');
-    // console.log(csvGraph);
 
     window.graph = csv.readFromEdgeList(csvGraph, file.name);
 
@@ -40,13 +38,13 @@ function loadGraphFromEdgeList(file, directed) {
     // then give some to them ;)
     if ( !graph.getRandomNode().getFeature('coords') ) {
       for ( node_key in graph.getNodes() ) {
-        var c = {x: Math.random()*(DOMAIN_WIDTH-8), y: Math.random()*(DOMAIN_HEIGHT-8)};
+        var c = {x: Math.random()*(DOMAIN_WIDTH-8), y: Math.random()*(DOMAIN_HEIGHT-8), z: Math.random()*(DOMAIN_HEIGHT-8)};
         graph.getNodeById(node_key).setFeature('coords', c);
       }
     }
 
     end = +new Date();
-
+    
     console.log("Read graph with " + graph.nrNodes() + " nodes, " + graph.nrUndEdges() + " undirected edges, " + graph.nrDirEdges() + " directed edges in " + (end-start) + " ms.");
     console.log("Pure GraphiniusJS readfromJSON time: " + (end-onload) + " ms");
 
